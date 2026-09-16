@@ -249,6 +249,60 @@
       *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
       .reveal { opacity: 1; transform: none; }
     }
+
+    /* Revised personal portfolio layout */
+    section, .work-group, article { scroll-margin-top: 94px; }
+    .hero { min-height: 650px; height: 82svh; max-height: 850px; }
+    .hero-content { width: min(650px, 100%); padding-block: 90px 40px; }
+    h1 { font-family: "Noto Sans Thai", sans-serif; font-size: clamp(2rem,4.1vw,3.25rem); line-height: 1.55; letter-spacing: 0; margin: 1rem 0; }
+    h1 span { color: var(--text); -webkit-text-stroke: 0; font-size: .84em; }
+    .role { font-size: 1rem; letter-spacing: .045em; }
+    .hero-copy { font-size: 1rem; max-width: 520px; }
+    section { padding: 64px 0; }
+    .section-title { font: 600 clamp(1.65rem,3vw,2.25rem)/1.5 "Noto Sans Thai",sans-serif; letter-spacing: 0; }
+    .section-head { margin-bottom: 28px; }
+    .about-grid { display: block; }
+    .about-copy { max-width: 850px; }
+    .about-copy > p { font-size: 1rem; }
+    .facts { margin-top: 24px; }
+    .category-nav { height: auto; justify-content: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+    .category-nav a { border: 1px solid var(--line); padding: 9px 16px; font-size: .9rem; }
+    .category-nav a:hover { border-color: var(--accent); }
+    .work-group { margin-top: 44px; }
+    .work-group > h3 { display: flex; align-items: center; gap: 16px; font-size: 1.3rem; font-weight: 500; }
+    .work-group small { font: 400 .75rem "Chakra Petch",sans-serif; color: var(--muted); }
+    .work-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
+    .work-card { padding: 25px; border: 1px solid var(--line); background: #111218; display: flex; flex-direction: column; }
+    .work-card h4 { font: 600 1.25rem/1.5 "Chakra Petch","Noto Sans Thai",sans-serif; margin: 8px 0; }
+    .work-card > p { font-size: 1rem; color: #b9bac3; margin: 0 0 20px; }
+    .work-card .work-meta { color: var(--accent-bright); font-size: .85rem; margin-bottom: 0; }
+    .work-link { margin-top: auto; color: #efedef; font-size: .9rem; text-decoration: underline; text-underline-offset: 5px; }
+    .source-note { margin-top: 30px; color: var(--muted); }
+    .source-note a { color: var(--text); text-decoration: underline; }
+    .interest-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 30px; margin-top: 25px; }
+    .interest-grid h3 { font-size: 1.1rem; font-weight: 500; }
+    .interest-grid p { color: var(--muted); }
+    .skill-grid { grid-template-columns: repeat(3,minmax(0,1fr)); grid-auto-rows: auto; }
+    .skill-card.primary { grid-row: auto; grid-column: span 2; min-height: auto; }
+    .skill-card p, .tag { font-size: .9rem; }
+    .contact-panel { padding: 32px; }
+    .contact-panel h2 { font: 600 2rem/1.5 "Noto Sans Thai",sans-serif; letter-spacing: 0; }
+    .contact-panel::after { content: none; }
+    .contact-details { display: grid; grid-template-columns: 1.3fr .8fr 1.4fr; gap: 24px; overflow-wrap: anywhere; }
+    .contact-details small { display: block; color: var(--muted); margin-bottom: 6px; }
+    .contact-details a:hover { color: var(--accent-bright); }
+    .reveal { opacity: 1; transform: none; }
+    .eyebrow { font-size: .8rem; }
+    @media(max-width:760px) {
+      .hero { height: auto; min-height: 600px; }
+      .hero-content { padding-top: 110px; }
+      .work-grid,.interest-grid,.contact-details,.skill-grid { grid-template-columns: 1fr; }
+      .skill-card.primary { grid-column: auto; }
+      .work-card { padding: 22px; }
+      .contact-panel { padding: 24px; }
+      section { padding: 48px 0; }
+    }
+
   </style>
 </head>
 <body>
@@ -263,7 +317,7 @@
       <div class="nav-links" id="nav-links">
         <a href="#about">แนะนำตัว</a>
         <a href="#projects">ผลงาน</a>
-        <a href="#process">กระบวนการ</a>
+        <a href="#interests">สิ่งที่สนใจ</a>
         <a href="#skills">สกิล</a>
         <a class="nav-cta" href="#contact">ติดต่อ</a>
       </div>
@@ -275,10 +329,10 @@
       <canvas id="world" aria-hidden="true"></canvas>
       <div class="container">
         <div class="hero-content">
-          <div class="availability"><i aria-hidden="true"></i> พร้อมสำหรับการฝึกงานและร่วมพัฒนาโปรเจกต์เกม</div>
+          <div class="availability"><i aria-hidden="true"></i> PORTFOLIO · เบส</div>
           <h1>ธีรภัทร์ <span>ศรีทวีวัฒนานนท์</span></h1>
-          <p class="role">GAME &amp; LEVEL DESIGNER · ENVIRONMENT ARTIST</p>
-          <p class="hero-copy">ออกแบบพื้นที่ที่นำทางผู้เล่น สร้างจังหวะการเล่น และเปลี่ยนไอเดียให้กลายเป็นประสบการณ์ที่เล่นได้จริงผ่าน Unity และ Blender</p>
+          <p class="role">GAME / LEVEL DESIGN</p>
+          <p class="hero-copy">สวัสดีครับ ผมเบส สนใจงานออกแบบเกมและด่านเกม<br>เว็บนี้รวมผลงานจากการเรียนและโปรเจกต์ส่วนตัวของผม</p>
           <div class="actions">
             <a class="button primary" href="#projects">ดูผลงาน <span aria-hidden="true">↓</span></a>
             <a class="button" href="#about">รู้จักผมเพิ่มเติม</a>
@@ -291,18 +345,13 @@
 
     <section id="about">
       <div class="container about-grid">
-        <div class="identity-card reveal">
-          <div class="portrait" aria-label="พื้นที่สำหรับใส่รูปโปรไฟล์ในภายหลัง">
-            <div class="portrait-label">LEVEL DESIGN / 3D</div>
-          </div>
-        </div>
         <div class="about-copy reveal">
           <p class="eyebrow">ABOUT ME</p>
-          <h2 class="section-title">ออกแบบจากมุมมองของผู้เล่น</h2>
-          <h3>ผมสนใจทั้งเส้นทาง จังหวะ และความรู้สึกที่เกิดขึ้นระหว่างการเล่น</h3>
+          <h2 class="section-title">แนะนำตัว</h2>
+
           <p>ผมชื่อ <strong>นายธีรภัทร์ ศรีทวีวัฒนานนท์</strong> นักศึกษาชั้นปีที่ 4 มหาวิทยาลัยเทคโนโลยีราชมงคลรัตนโกสินทร์ คณะสถาปัตยกรรมศาสตร์และการออกแบบ สาขาดิจิทัลมีเดีย เอกเกมและแอนิเมชัน</p>
-          <p>ผมสนใจงานด้าน Game Design, Level Design และ Environment Art โดยเน้นการวางผังพื้นที่ เส้นทางผู้เล่น พัซเซิล ตำแหน่งศัตรูและไอเทม รวมถึงการสร้าง Blockout เพื่อทดสอบไอเดียก่อนพัฒนาเป็นฉากจริง</p>
-          <blockquote class="focus-quote">“ผมอยากสร้างพื้นที่ที่ไม่ได้มีไว้แค่ให้ผู้เล่นเดินผ่าน แต่ทำให้ผู้เล่นรู้สึกและตัดสินใจบางอย่างระหว่างทาง”</blockquote>
+          <p>ผมสนใจการออกแบบ Map และ Puzzle ใช้ Unity ทำงานเป็นหลัก ส่วน Blender และการตัดต่อวิดีโอเป็นทักษะเสริมครับ</p>
+
           <div class="facts">
             <div class="fact"><small>การศึกษา</small><strong>Digital Media · Game &amp; Animation</strong></div>
             <div class="fact"><small>สายงานที่สนใจ</small><strong>Game / Level / Environment Design</strong></div>
@@ -313,69 +362,35 @@
       </div>
     </section>
 
-    <section class="projects" id="projects">
-      <div class="container">
-        <div class="section-head reveal">
-          <p class="eyebrow">SELECTED PROJECTS</p>
-          <h2 class="section-title">ผลงานที่แสดงวิธีคิด และการแก้ปัญหา</h2>
-          <p class="section-lead">แต่ละโปรเจกต์เริ่มจากประสบการณ์ที่ต้องการให้ผู้เล่นได้รับ แล้วจึงพัฒนาเป็นผัง พื้นที่ ระบบ และบรรยากาศที่ทำงานร่วมกัน</p>
-        </div>
-        <div class="project-list">
-          <article class="project-card reveal" id="project-boss">
-            <span class="project-number">01</span>
-            <div class="project-main"><h3>Boss Fight Prototype</h3><p>สนามต่อสู้บรรยากาศมืดที่ออกแบบจังหวะหลบและการอ่านรูปแบบโจมตีของบอส</p></div>
-            <div class="project-role">Game &amp; Combat Design<div class="tags"><span class="tag">UNITY 6</span><span class="tag">URP</span><span class="tag">CINEMACHINE</span></div></div>
-            <span class="project-arrow" aria-hidden="true">↗</span>
-          </article>
-          <article class="project-card reveal" id="project-coop">
-            <span class="project-number">02</span>
-            <div class="project-main"><h3>Two-Player Puzzle</h3><p>เกม Couch Co-op ที่ใช้ความต่างของตัวละครเพื่อแบ่งหน้าที่และแก้พัซเซิลร่วมกัน</p></div>
-            <div class="project-role">Level &amp; Puzzle Design<div class="tags"><span class="tag">UNITY</span><span class="tag">CO-OP</span><span class="tag">PROBUILDER</span></div></div>
-            <span class="project-arrow" aria-hidden="true">↗</span>
-          </article>
-          <article class="project-card reveal" id="project-horror">
-            <span class="project-number">03</span>
-            <div class="project-main"><h3>VR Horror House</h3><p>บ้านสยองขวัญขนาดกะทัดรัดที่เล่าเรื่องผ่านหลักฐาน เสียง และเหตุการณ์ภายในพื้นที่</p></div>
-            <div class="project-role">VR Level &amp; Experience Design<div class="tags"><span class="tag">VR</span><span class="tag">UNITY URP</span><span class="tag">ENVIRONMENT</span></div></div>
-            <span class="project-arrow" aria-hidden="true">↗</span>
-          </article>
-          <article class="project-card reveal" id="project-saloon">
-            <span class="project-number">04</span>
-            <div class="project-main"><h3>Saloon Magic Prank</h3><p>ประสบการณ์ VR เชิงตลกที่ใช้การจัดพื้นที่และลำดับเหตุการณ์สร้างจังหวะมุกสามฉาก</p></div>
-            <div class="project-role">VR Interaction &amp; Layout<div class="tags"><span class="tag">VR</span><span class="tag">COMEDY</span><span class="tag">INTERACTION</span></div></div>
-            <span class="project-arrow" aria-hidden="true">↗</span>
-          </article>
-          <article class="project-card reveal" id="project-castle">
-            <span class="project-number">05</span>
-            <div class="project-main"><h3>Castle Level Blockout</h3><p>การวางผังปราสาทและพื้นที่ธรรมชาติ โดยสร้างเส้นทางหลัก จุดแยก และแลนด์มาร์กที่จดจำได้</p></div>
-            <div class="project-role">Environment &amp; Level Design<div class="tags"><span class="tag">BLENDER</span><span class="tag">BLOCKOUT</span><span class="tag">TERRAIN</span></div></div>
-            <span class="project-arrow" aria-hidden="true">↗</span>
-          </article>
-        </div>
-      </div>
-    </section>
+    <section class="projects" id="projects"><div class="container">
+<div class="section-head"><p class="eyebrow">PORTFOLIO</p><h2 class="section-title">ผลงาน</h2><p class="section-lead">รวมงานเกม งาน 3D และงานออกแบบจากการเรียน</p></div>
+<nav class="category-nav" aria-label="หมวดผลงาน"><a href="#games">เกม</a><a href="#blender">Blender / 3D</a><a href="#characters">ตัวละคร / งานวาด</a><a href="#other">งานอื่น ๆ</a></nav>
+<div class="work-group" id="games"><h3>งานเกม <small>08 PROJECTS</small></h3><div class="work-grid"><article class="work-card" id="project-coop"><p class="work-meta">Level / Map / Puzzle · ทีม 2 คน</p><h4>Dual Shift</h4><p>เกมแก้ปริศนาสำหรับผู้เล่น 2 คน โปรเจกต์ Thesis ที่ทำร่วมกับเพื่อน ผมรับผิดชอบ Map และ Puzzle ในแต่ละโซน</p><a class="work-link" href="https://www.youtube.com/watch?v=Gl5DMHnLCAY" target="_blank" rel="noopener noreferrer">ดูวิดีโอ ↗</a></article>
+<article class="work-card" id="project-boss"><p class="work-meta">Level / Map · งานเดี่ยว</p><h4>Boss Fight — Map</h4><p>ออกแบบทางเดินและบรรยากาศก่อนถึงห้องบอส ใช้หมอก แสง และจุดสังเกตช่วยนำทาง</p><a class="work-link" href="https://www.youtube.com/watch?v=e_sPRuRlCow" target="_blank" rel="noopener noreferrer">ดูวิดีโอ ↗</a></article>
+<article class="work-card" id="project-gameplay"><p class="work-meta">Game / Map · งานเดี่ยว</p><h4>Boss Fight — Gameplay</h4><p>ทดลองทำการต่อสู้กับบอสจากฉากเดิม เชื่อมการเคลื่อนที่ แอนิเมชัน และรูปแบบการโจมตี</p><a class="work-link" href="https://www.canva.com/d/XTNP7JGB6naOmjx" target="_blank" rel="noopener noreferrer">ดูใน Portfolio ↗</a></article>
+<article class="work-card" id="project-map"><p class="work-meta">Level / Map · งานเดี่ยว</p><h4>Map Game</h4><p>แมพแก้ปริศนา 3 ด่าน ผู้เล่นสำรวจ หาไอเทม และทำภารกิจเพื่อเปิดทางไปต่อ</p><a class="work-link" href="https://www.youtube.com/watch?v=lbBykCGXwhE" target="_blank" rel="noopener noreferrer">ดูวิดีโอ ↗</a></article>
+<article class="work-card" id="project-horror"><p class="work-meta">Game / Level · งานเดี่ยว</p><h4>VR / AR Game</h4><p>ออกแบบห้องและจัดวางสิ่งของเพื่อเล่าความทรงจำของพ่อที่ยังคิดถึงลูกสาว</p><a class="work-link" href="https://www.youtube.com/watch?v=fP8bFzMTkkE" target="_blank" rel="noopener noreferrer">ดูวิดีโอ ↗</a></article>
+<article class="work-card" id="project-emerald"><p class="work-meta">Game / Map · ทีม 3 คน</p><h4>Emerald Knights</h4><p>เกม 2D ชิ้นแรกที่ทำกับเพื่อน ผมร่วมทำ Map อุปสรรค และเชื่อมแอนิเมชันพื้นฐาน</p><a class="work-link" href="https://www.youtube.com/watch?v=g8bYHeh4Pro" target="_blank" rel="noopener noreferrer">ดูวิดีโอ ↗</a></article>
+<article class="work-card" id="project-saloon"><p class="work-meta">Map · งานเดี่ยว</p><h4>Saloon Map</h4><p>ฉากร้านเหล้าคาวบอยสำหรับ VR แบ่งพื้นที่เป็นเหตุการณ์ 3 จุด ให้ผู้เล่นใช้เวทมนตร์แกล้ง NPC</p><a class="work-link" href="https://www.canva.com/d/XTNP7JGB6naOmjx" target="_blank" rel="noopener noreferrer">ดูใน Portfolio ↗</a></article>
+<article class="work-card" id="project-castle"><p class="work-meta">Level / Map · กำลังพัฒนา</p><h4>Hogwarts-inspired Blockout</h4><p>งานฝึกวางผังปราสาทขนาดใหญ่ ออกแบบพื้นที่ตามแนวคิดของตัวเอง ขณะนี้อยู่ระหว่างพัฒนา</p><a class="work-link" href="https://www.canva.com/d/XTNP7JGB6naOmjx" target="_blank" rel="noopener noreferrer">ดูใน Portfolio ↗</a></article></div></div>
+<div class="work-group" id="blender"><h3>งาน Blender และ 3D</h3><div class="work-grid"><article class="work-card" id="pun-prem"><p class="work-meta">3D Modeling</p><h4>โมเดลตัวละคร ปัน / เปรม</h4><p>ปันเป็นน้องชายวัย 14 ปีที่หัวแข็ง ส่วนเปรมเป็นพี่ชายวัย 16 ปีที่ใจเย็นและใช้เหตุผล</p><a class="work-link" href="https://www.canva.com/d/XTNP7JGB6naOmjx" target="_blank" rel="noopener noreferrer">ดูใน Portfolio ↗</a></article>
+<article class="work-card" id="motion"><p class="work-meta">Blender</p><h4>Motion + Animation Object</h4><p>นำ Motion มาใช้กับตัวละคร และทำ Keyframe ให้สิ่งของเคลื่อนไหวตามจังหวะ</p><a class="work-link" href="https://www.canva.com/d/XTNP7JGB6naOmjx" target="_blank" rel="noopener noreferrer">ดูใน Portfolio ↗</a></article>
+<article class="work-card" id="keyframes"><p class="work-meta">Blender</p><h4>Motion Clean Keyframe</h4><p>จัด Keyframe ใหม่ให้เหลือเฉพาะเฟรมที่จำเป็น เพื่อลดขนาดไฟล์</p><a class="work-link" href="https://www.canva.com/d/XTNP7JGB6naOmjx" target="_blank" rel="noopener noreferrer">ดูใน Portfolio ↗</a></article></div></div>
+<div class="work-group" id="characters"><h3>ออกแบบตัวละครและงานวาด</h3><div class="work-grid"><article class="work-card" id="character-art"><p class="work-meta">Procreate</p><h4>Character Design</h4><p>งานวาดตัวละครจากการเรียน เป็นงานเสริมที่ผมได้ลองฝึกนอกเหนือจากการทำเกม</p><a class="work-link" href="https://www.canva.com/d/XTNP7JGB6naOmjx" target="_blank" rel="noopener noreferrer">ดูใน Portfolio ↗</a></article>
+<article class="work-card" id="hope"><p class="work-meta">Poster / งานกลุ่ม</p><h4>โปสเตอร์ THE HOPE</h4><p>รับผิดชอบออกแบบโปสเตอร์แอนิเมชันของกลุ่ม อ้วนผอมจอมซน ในค่าย OFOS NEXT FRAME</p><a class="work-link" href="https://www.facebook.com/reel/641277312320181" target="_blank" rel="noopener noreferrer">ดูวิดีโอ ↗</a></article></div></div>
+<div class="work-group" id="other"><h3>งานอื่น ๆ</h3><div class="work-grid"><article class="work-card" id="terrain"><p class="work-meta">Unity</p><h4>Environment / Timeline</h4><p>ฝึกสร้างพื้นที่ธรรมชาติด้วย Terrain และจัดลำดับการเคลื่อนไหวด้วย Timeline ใน Unity</p><a class="work-link" href="https://www.canva.com/d/XTNP7JGB6naOmjx" target="_blank" rel="noopener noreferrer">ดูใน Portfolio ↗</a></article>
+<article class="work-card" id="video"><p class="work-meta">Premiere Pro · พื้นฐาน</p><h4>วิดีโอและคอนเทนต์เกม</h4><p>ฝึกตัดต่อ Highlight เกม และทำคลิปสรุปแพตช์ League of Legends ส่งงานอาจารย์</p><a class="work-link" href="https://www.youtube.com/watch?v=YXtuH7pS2UA" target="_blank" rel="noopener noreferrer">ดูวิดีโอ ↗</a></article></div></div>
+<p class="source-note">ดูภาพผลงานทั้งหมดใน <a href="https://www.canva.com/d/XTNP7JGB6naOmjx" target="_blank" rel="noopener noreferrer">Portfolio บน Canva ↗</a></p>
+</div></section>
 
-    <section id="process">
-      <div class="container">
-        <div class="section-head reveal">
-          <p class="eyebrow">WORK PROCESS</p>
-          <h2 class="section-title">จากแนวคิดสู่พื้นที่ที่เล่นได้จริง</h2>
-        </div>
-        <div class="process-grid reveal">
-          <div class="step"><span class="step-num">01</span><h3>กำหนดประสบการณ์</h3><p>ระบุอารมณ์ เป้าหมาย และสิ่งที่ผู้เล่นต้องทำหรือเรียนรู้</p></div>
-          <div class="step"><span class="step-num">02</span><h3>วาง Flow และ Layout</h3><p>กำหนดเส้นทาง จุดตัดสินใจ จังหวะพัก และแลนด์มาร์ก</p></div>
-          <div class="step"><span class="step-num">03</span><h3>สร้าง Blockout</h3><p>ทดสอบสเกล ระยะมองเห็น และการเคลื่อนที่ด้วยรูปทรงพื้นฐาน</p></div>
-          <div class="step"><span class="step-num">04</span><h3>ทดสอบการเล่น</h3><p>สังเกตว่าผู้เล่นเข้าใจพื้นที่หรือไม่ แล้วแก้จุดที่ทำให้สับสน</p></div>
-          <div class="step"><span class="step-num">05</span><h3>พัฒนาและนำเสนอ</h3><p>เพิ่มระบบ บรรยากาศ แสง เสียง และเก็บภาพขั้นตอนการทำงาน</p></div>
-        </div>
-      </div>
-    </section>
+<section id="interests"><div class="container"><p class="eyebrow">INTERESTS</p><h2 class="section-title">สิ่งที่สนใจ</h2>
+<div class="interest-grid"><div><h3>Level Design</h3><p>วางผังแมพ เส้นทาง และจุดสังเกตที่ช่วยให้ผู้เล่นรู้ว่าจะไปไหน</p></div><div><h3>Game &amp; Puzzle Design</h3><p>คิดกติกาและปริศนาที่ผู้เล่นได้ลองแก้ โดยเฉพาะเกมที่ต้องช่วยกันเล่น</p></div><div><h3>Environment</h3><p>ฝึกสร้างฉาก จัดวางสิ่งของ และใช้แสงสร้างบรรยากาศในเกม</p></div></div></div></section>
 
     <section class="skills" id="skills">
       <div class="container">
         <div class="section-head reveal">
           <p class="eyebrow">SKILLS &amp; TOOLS</p>
-          <h2 class="section-title">ทักษะที่ใช้เปลี่ยนไอเดียให้เล่นได้</h2>
+          <h2 class="section-title">ทักษะและเครื่องมือ</h2>
         </div>
         <div class="skill-grid">
           <article class="skill-card primary reveal">
@@ -383,9 +398,9 @@
             <div class="tool-cloud"><span>Map Layout</span><span>Player Flow</span><span>Puzzle Design</span><span>Encounter Design</span><span>Blockout</span><span>Playtesting</span></div>
           </article>
           <article class="skill-card reveal"><span class="skill-icon">ENGINE</span><h3>Unity</h3><p>สร้างฉาก ระบบพื้นฐาน UI, Input System, Cinemachine และประกอบ Gameplay Prototype</p></article>
-          <article class="skill-card reveal"><span class="skill-icon">3D</span><h3>Blender</h3><p>สร้าง Blockout, Props และเตรียมโมเดลสำหรับนำไปใช้งานในเอนจิน</p></article>
+          <article class="skill-card reveal"><span class="skill-icon">3D</span><h3>Blender · พื้นฐาน</h3><p>สร้าง Blockout, Props และเตรียมโมเดลสำหรับนำไปใช้งานในเอนจิน</p></article>
           <article class="skill-card reveal"><span class="skill-icon">WORKFLOW</span><h3>Git &amp; Teamwork</h3><p>แยก Branch แบ่งฉาก และรวมงานร่วมกับสมาชิกในทีมผ่าน GitHub</p></article>
-          <article class="skill-card reveal"><span class="skill-icon">MEDIA</span><h3>Presentation</h3><p>บันทึก Gameplay และตัดต่อวิดีโอพื้นฐานด้วย OBS และ Premiere Pro</p></article>
+          <article class="skill-card reveal"><span class="skill-icon">MEDIA</span><h3>Premiere Pro · พื้นฐาน</h3><p>บันทึก Gameplay และตัดต่อวิดีโอพื้นฐานด้วย OBS และ Premiere Pro</p></article>
         </div>
       </div>
     </section>
@@ -394,13 +409,9 @@
       <div class="container">
         <div class="contact-panel reveal">
           <p class="eyebrow">CONTACT</p>
-          <h2>มาสร้างพื้นที่ที่ผู้เล่น<span>อยากสำรวจ</span>ไปด้วยกัน</h2>
-          <p>สนใจโอกาสฝึกงานด้าน Game Design, Level Design และ Environment Art รวมถึงการร่วมพัฒนาโปรเจกต์เกม</p>
-          <div class="contact-links">
-            <a class="button primary" href="https://github.com/BestKuNG-bot" target="_blank" rel="noopener noreferrer">ดู GitHub <span aria-hidden="true">↗</span></a>
-            <a class="button" href="#home">กลับไปด้านบน ↑</a>
-          </div>
-          <!-- เพิ่มอีเมลได้ที่นี่ เช่น <a class="button" href="mailto:name@example.com">Email</a> -->
+          <h2>ติดต่อ</h2>
+          <p>ติดต่อเรื่องฝึกงานหรือสอบถามผลงานได้ตามช่องทางด้านล่างครับ</p>
+          <div class="contact-details"><a href="mailto:teerapat74110@gmail.com"><small>อีเมล</small>teerapat74110@gmail.com</a><a href="tel:+66805075671"><small>โทรศัพท์</small>080-507-5671</a><div><small>Facebook</small>Teerapat Sritaweewattananon</div></div>
         </div>
       </div>
     </section>
@@ -408,6 +419,37 @@
 
   <footer><div class="container"><span>© <span id="year"></span> Teerapat Sritaweewattananon</span><span>Designed for Game &amp; Level Design</span></div></footer>
 
+  <script>
+    const header = document.querySelector("#header");
+    const menu = document.querySelector(".menu-button");
+    const navLinks = document.querySelector("#nav-links");
+    addEventListener("scroll", () => header.classList.toggle("scrolled", scrollY > 30), { passive: true });
+    menu.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+      menu.setAttribute("aria-expanded", String(open));
+      menu.textContent = open ? "×" : "☰";
+    });
+    navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+      navLinks.classList.remove("open"); menu.setAttribute("aria-expanded", "false"); menu.textContent = "☰";
+    }));
+
+    const reveals = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("visible"); revealObserver.unobserve(entry.target); } });
+    }, { threshold: .12 });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    const sections = [...document.querySelectorAll("main section[id]")];
+    const links = [...navLinks.querySelectorAll("a[href^='#']")];
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        links.forEach(link => link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`));
+      });
+    }, { rootMargin: "-45% 0px -45%" });
+    sections.forEach(section => sectionObserver.observe(section));
+    document.querySelector("#year").textContent = new Date().getFullYear();
+  </script>
   <script type="importmap">
     { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js" } }
   </script>
@@ -420,6 +462,7 @@
     scene.fog = new THREE.FogExp2(0x08090d, 0.052);
     const camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, 0.1, 100);
     camera.position.set(8.8, 5.4, 12.5);
+    camera.lookAt(2, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
     renderer.setPixelRatio(Math.min(devicePixelRatio, 1.7));
@@ -554,7 +597,8 @@
       label.style.left = event.clientX + "px";
       label.style.top = event.clientY + "px";
     });
-    addEventListener("click", () => {
+    addEventListener("click", (event) => {
+      if (scrollY > innerHeight || event.target.closest("a,button")) return;
       if (hovered?.userData.target) document.getElementById(hovered.userData.target)?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
     });
 
@@ -572,7 +616,7 @@
       raycaster.setFromCamera(pointer, camera);
       const hits = raycaster.intersectObjects(interactive.map(i => i.object), true);
       hovered = hits.length ? (hits[0].object.userData.parentHit || hits[0].object) : null;
-      label.style.display = hovered ? "block" : "none";
+      label.style.display = hovered && scrollY < 50 ? "block" : "none";
       if (hovered) label.textContent = hovered.userData.label;
       canvas.style.cursor = hovered ? "pointer" : "default";
       renderer.render(scene, camera);
@@ -591,35 +635,6 @@
     addEventListener("resize", resize, { passive: true });
     resize();
 
-    const header = document.querySelector("#header");
-    const menu = document.querySelector(".menu-button");
-    const navLinks = document.querySelector("#nav-links");
-    addEventListener("scroll", () => header.classList.toggle("scrolled", scrollY > 30), { passive: true });
-    menu.addEventListener("click", () => {
-      const open = navLinks.classList.toggle("open");
-      menu.setAttribute("aria-expanded", String(open));
-      menu.textContent = open ? "×" : "☰";
-    });
-    navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
-      navLinks.classList.remove("open"); menu.setAttribute("aria-expanded", "false"); menu.textContent = "☰";
-    }));
-
-    const reveals = document.querySelectorAll(".reveal");
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("visible"); revealObserver.unobserve(entry.target); } });
-    }, { threshold: .12 });
-    reveals.forEach(el => revealObserver.observe(el));
-
-    const sections = [...document.querySelectorAll("main section[id]")];
-    const links = [...navLinks.querySelectorAll("a[href^='#']")];
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        links.forEach(link => link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`));
-      });
-    }, { rootMargin: "-45% 0px -45%" });
-    sections.forEach(section => sectionObserver.observe(section));
-    document.querySelector("#year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
