@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090d">
+  <meta name="description" content="Portfolio ของ ธีรภัทร์ ศรีทวีวัฒนานนท์ — Game & Level Designer, Environment Artist">
+  <title>ธีรภัทร์ ศรีทวีวัฒนานนท์ | Game & Level Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308090d'/%3E%3Cpath d='M13 17h38v8H36v25h-9V25H13z' fill='%23ef233c'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #08090d;
+      --surface: #101117;
+      --surface-2: #15171f;
+      --text: #f3f1ed;
+      --muted: #9a9ca6;
+      --line: rgba(255,255,255,.11);
+      --accent: #ef233c;
+      --accent-bright: #ff4d5f;
+      --accent-soft: rgba(239,35,60,.12);
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Noto Sans Thai", sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 20;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 4px; }
+    ::selection { background: var(--accent); color: white; }
+
+    .skip-link {
+      position: fixed; left: 1rem; top: -5rem; z-index: 100;
+      padding: .65rem 1rem; background: var(--text); color: var(--bg);
+      transition: top .2s;
+    }
+    .skip-link:focus { top: 1rem; }
+    .container { width: min(calc(100% - 2.5rem), var(--max)); margin-inline: auto; }
+    .eyebrow {
+      display: flex; align-items: center; gap: .65rem;
+      margin: 0 0 .8rem; color: var(--accent-bright);
+      font: 600 .78rem/1 "Chakra Petch", sans-serif;
+      letter-spacing: .16em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
+    .section-title {
+      margin: 0; max-width: 760px;
+      font: 600 clamp(2rem, 4.8vw, 4.2rem)/1.05 "Chakra Petch", "Noto Sans Thai", sans-serif;
+      letter-spacing: -.035em;
+    }
+    .section-head { margin-bottom: clamp(2.2rem, 5vw, 4rem); }
+    .section-lead { max-width: 650px; color: var(--muted); font-size: 1.02rem; margin: 1.25rem 0 0; }
+    section { position: relative; padding: clamp(5rem, 10vw, 9rem) 0; }
+
+    header {
+      position: fixed; inset: 0 0 auto; z-index: 50;
+      border-bottom: 1px solid transparent;
+      transition: background .3s, border-color .3s, backdrop-filter .3s;
+    }
+    header.scrolled {
+      background: rgba(8,9,13,.82); border-color: var(--line);
+      backdrop-filter: blur(18px);
+    }
+    nav { height: 76px; display: flex; align-items: center; justify-content: space-between; }
+    .brand {
+      display: flex; align-items: center; gap: .8rem;
+      font: 600 .9rem/1 "Chakra Petch", sans-serif; letter-spacing: .1em;
+    }
+    .brand-mark {
+      display: grid; place-items: center; width: 38px; aspect-ratio: 1;
+      border: 1px solid var(--accent); color: var(--accent-bright);
+      background: rgba(239,35,60,.08); font-weight: 700;
+    }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a { color: #c6c6cb; font-size: .88rem; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: white; }
+    .nav-cta { padding: .55rem .9rem; border: 1px solid rgba(239,35,60,.55); }
+    .menu-button {
+      display: none; width: 42px; height: 42px; border: 1px solid var(--line);
+      background: rgba(8,9,13,.8); color: white; cursor: pointer;
+    }
+
+    .hero {
+      min-height: 100svh; padding: 0; display: grid; align-items: center;
+      isolation: isolate; overflow: hidden;
+    }
+    #world { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(8,9,13,.98) 0%, rgba(8,9,13,.84) 35%, rgba(8,9,13,.18) 70%, rgba(8,9,13,.58) 100%),
+        linear-gradient(0deg, var(--bg) 0%, transparent 24%);
+    }
+    .hero-content { width: min(720px, 72vw); padding-top: 5rem; }
+    .availability { display: inline-flex; align-items: center; gap: .6rem; color: #d5d5d9; font-size: .82rem; }
+    .availability i { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 16px var(--accent); }
+    h1 {
+      margin: 1.2rem 0 1rem;
+      font: 600 clamp(3.4rem, 8.3vw, 7.8rem)/.88 "Chakra Petch", "Noto Sans Thai", sans-serif;
+      letter-spacing: -.065em;
+    }
+    h1 span { display: block; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.64); }
+    .role { margin: 0 0 1.6rem; color: var(--accent-bright); font: 600 clamp(1rem, 2vw, 1.28rem)/1.4 "Chakra Petch", sans-serif; letter-spacing: .1em; }
+    .hero-copy { max-width: 570px; color: #b4b4bb; font-size: clamp(.98rem, 1.5vw, 1.1rem); }
+    .actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: .7rem;
+      min-height: 48px; padding: .65rem 1.25rem; border: 1px solid var(--line);
+      font: 600 .84rem/1 "Chakra Petch", sans-serif; letter-spacing: .06em;
+      transition: transform .2s, border-color .2s, background .2s;
+    }
+    .button:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.35); }
+    .button.primary { background: var(--accent); border-color: var(--accent); color: white; }
+    .button.primary:hover { background: var(--accent-bright); }
+    .button svg { width: 17px; }
+    .scroll-note { position: absolute; left: max(1.25rem, calc((100vw - var(--max))/2)); bottom: 2rem; display: flex; align-items: center; gap: .8rem; color: #73757e; font: 500 .72rem/1 "Chakra Petch", sans-serif; letter-spacing: .14em; }
+    .scroll-note::before { content: ""; display: block; width: 44px; height: 1px; background: #484951; }
+    #object-label {
+      position: fixed; z-index: 40; display: none; pointer-events: none;
+      padding: .35rem .55rem; background: rgba(8,9,13,.9); border: 1px solid var(--line);
+      color: white; font: 500 .7rem/1 "Chakra Petch", sans-serif; transform: translate(14px,14px);
+    }
+
+    .about-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(3rem, 8vw, 7rem); align-items: start; }
+    .identity-card { position: sticky; top: 110px; }
+    .portrait {
+      position: relative; aspect-ratio: 4/5; overflow: hidden;
+      border: 1px solid var(--line); background: linear-gradient(145deg, #191b24, #0b0c11 70%);
+    }
+    .portrait canvas { width: 100%; height: 100%; }
+    .portrait::after { content: "TS"; position: absolute; right: -.04em; bottom: -.2em; color: rgba(255,255,255,.035); font: 700 11rem/1 "Chakra Petch", sans-serif; }
+    .portrait-label { position: absolute; left: 1rem; bottom: 1rem; z-index: 1; padding: .4rem .65rem; background: var(--accent); font: 600 .72rem/1 "Chakra Petch", sans-serif; }
+    .about-copy h3 { margin: 0 0 1.3rem; font: 600 clamp(1.6rem, 3vw, 2.5rem)/1.3 "Chakra Petch", "Noto Sans Thai", sans-serif; }
+    .about-copy > p { color: #b5b6bd; font-size: 1.04rem; }
+    .focus-quote { margin: 2.2rem 0; padding: 1.5rem 0 1.5rem 1.5rem; border-left: 2px solid var(--accent); color: white; font-size: 1.12rem; }
+    .facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin-top: 2.4rem; background: var(--line); border: 1px solid var(--line); }
+    .fact { background: var(--bg); padding: 1.25rem; }
+    .fact small { display: block; color: var(--muted); font-size: .74rem; margin-bottom: .35rem; }
+    .fact strong { font: 600 .95rem/1.5 "Chakra Petch", "Noto Sans Thai", sans-serif; }
+
+    .projects { background: #0b0c11; border-block: 1px solid rgba(255,255,255,.06); }
+    .project-list { border-top: 1px solid var(--line); }
+    .project-card {
+      display: grid; grid-template-columns: 70px 1.15fr .9fr auto; gap: 2rem; align-items: center;
+      min-height: 190px; padding: 2rem 0; border-bottom: 1px solid var(--line);
+      transition: padding .3s, background .3s;
+    }
+    .project-card:hover { padding-inline: 1.2rem; background: rgba(255,255,255,.025); }
+    .project-number { align-self: start; color: var(--accent); font: 500 .82rem/1 "Chakra Petch", sans-serif; }
+    .project-main h3 { margin: 0 0 .5rem; font: 600 clamp(1.45rem, 2.7vw, 2.2rem)/1.2 "Chakra Petch", "Noto Sans Thai", sans-serif; }
+    .project-main p { margin: 0; color: var(--muted); max-width: 480px; font-size: .94rem; }
+    .project-role { color: #c9c9cf; font-size: .88rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .9rem; }
+    .tag { padding: .22rem .55rem; border: 1px solid var(--line); color: #94959d; font: 500 .68rem/1.4 "Chakra Petch", sans-serif; }
+    .project-arrow { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid var(--line); color: var(--accent-bright); transition: transform .25s, background .25s; }
+    .project-card:hover .project-arrow { transform: rotate(-45deg); background: var(--accent-soft); }
+
+    .process-grid { display: grid; grid-template-columns: repeat(5, 1fr); border-block: 1px solid var(--line); }
+    .step { position: relative; min-height: 250px; padding: 1.5rem; border-right: 1px solid var(--line); }
+    .step:last-child { border-right: 0; }
+    .step-num { color: var(--accent); font: 600 2rem/1 "Chakra Petch", sans-serif; opacity: .75; }
+    .step h3 { margin: 4rem 0 .7rem; font: 600 1rem/1.3 "Chakra Petch", "Noto Sans Thai", sans-serif; }
+    .step p { color: var(--muted); margin: 0; font-size: .85rem; }
+    .step::before { content: ""; position: absolute; top: 0; left: 0; width: 0; height: 2px; background: var(--accent); transition: width .35s; }
+    .step:hover::before { width: 100%; }
+
+    .skills { background: radial-gradient(circle at 85% 50%, rgba(239,35,60,.08), transparent 30%); }
+    .skill-grid { display: grid; grid-template-columns: 1.15fr .85fr .85fr; grid-auto-rows: minmax(180px, auto); gap: 1rem; }
+    .skill-card { padding: 1.7rem; border: 1px solid var(--line); background: rgba(16,17,23,.7); }
+    .skill-card.primary { grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(150deg, rgba(239,35,60,.13), rgba(16,17,23,.8) 60%); }
+    .skill-icon { color: var(--accent); font: 500 .75rem/1 "Chakra Petch", sans-serif; letter-spacing: .12em; }
+    .skill-card h3 { margin: 1.2rem 0 .55rem; font: 600 1.25rem/1.3 "Chakra Petch", "Noto Sans Thai", sans-serif; }
+    .skill-card p { margin: 0; color: var(--muted); font-size: .88rem; }
+    .tool-cloud { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 2rem; }
+    .tool-cloud span { padding: .45rem .7rem; border: 1px solid rgba(255,255,255,.13); color: #c2c3c9; font-size: .78rem; }
+
+    .contact { padding-bottom: 4rem; }
+    .contact-panel { position: relative; overflow: hidden; padding: clamp(2rem, 6vw, 5rem); border: 1px solid var(--line); background: #0f1016; }
+    .contact-panel::after { content: "CONTACT"; position: absolute; right: -1rem; bottom: -2rem; color: rgba(255,255,255,.025); font: 700 clamp(5rem, 14vw, 12rem)/1 "Chakra Petch", sans-serif; pointer-events: none; }
+    .contact-panel h2 { position: relative; z-index: 1; max-width: 780px; margin: 0; font: 600 clamp(2.3rem, 6vw, 5.4rem)/1.04 "Chakra Petch", "Noto Sans Thai", sans-serif; letter-spacing: -.045em; }
+    .contact-panel h2 span { color: var(--accent); }
+    .contact-panel p { position: relative; z-index: 1; max-width: 590px; color: var(--muted); margin: 1.3rem 0 2rem; }
+    .contact-links { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: .8rem; }
+    footer { padding: 1.6rem 0; border-top: 1px solid var(--line); color: #73747c; font-size: .75rem; }
+    footer .container { display: flex; justify-content: space-between; gap: 1rem; }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .75s ease, transform .75s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 900px) {
+      .nav-links { position: fixed; inset: 76px 0 auto; display: none; padding: 1.5rem 1.25rem 2rem; background: rgba(8,9,13,.97); border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start; }
+      .nav-links.open { display: flex; }
+      .menu-button { display: grid; place-items: center; }
+      .hero-content { width: 86vw; }
+      .hero::before { background: linear-gradient(90deg, rgba(8,9,13,.98), rgba(8,9,13,.62)), linear-gradient(0deg,var(--bg),transparent 35%); }
+      .about-grid { grid-template-columns: 1fr; }
+      .identity-card { position: relative; top: 0; max-width: 460px; }
+      .project-card { grid-template-columns: 45px 1fr auto; gap: 1rem; }
+      .project-role { grid-column: 2 / 4; }
+      .process-grid { grid-template-columns: repeat(2,1fr); }
+      .step:nth-child(2), .step:nth-child(4) { border-right: 0; }
+      .step:last-child { grid-column: span 2; border-top: 1px solid var(--line); }
+      .skill-grid { grid-template-columns: repeat(2,1fr); }
+      .skill-card.primary { grid-column: span 2; grid-row: auto; min-height: 300px; }
+    }
+
+    @media (max-width: 560px) {
+      .container { width: min(calc(100% - 2rem), var(--max)); }
+      nav { height: 66px; }
+      .brand-name { display: none; }
+      .nav-links { top: 66px; }
+      .hero-content { width: 100%; padding-top: 3rem; }
+      h1 { font-size: clamp(3rem, 16vw, 5.2rem); }
+      .scroll-note { display: none; }
+      .facts { grid-template-columns: 1fr; }
+      .project-card { grid-template-columns: 38px 1fr; padding: 1.6rem 0; }
+      .project-role { grid-column: 2; }
+      .project-arrow { display: none; }
+      .process-grid { grid-template-columns: 1fr; }
+      .step, .step:nth-child(2), .step:nth-child(4) { border-right: 0; border-bottom: 1px solid var(--line); min-height: 210px; }
+      .step:last-child { grid-column: auto; }
+      .step h3 { margin-top: 2.5rem; }
+      .skill-grid { grid-template-columns: 1fr; }
+      .skill-card.primary { grid-column: auto; }
+      footer .container { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">ข้ามไปยังเนื้อหา</a>
+  <header id="header">
+    <nav class="container" aria-label="เมนูหลัก">
+      <a class="brand" href="#home" aria-label="กลับไปหน้าแรก">
+        <span class="brand-mark">TS</span>
+        <span class="brand-name">TEERAPAT / PORTFOLIO</span>
+      </a>
+      <button class="menu-button" aria-expanded="false" aria-controls="nav-links" aria-label="เปิดเมนู">☰</button>
+      <div class="nav-links" id="nav-links">
+        <a href="#about">แนะนำตัว</a>
+        <a href="#projects">ผลงาน</a>
+        <a href="#process">กระบวนการ</a>
+        <a href="#skills">สกิล</a>
+        <a class="nav-cta" href="#contact">ติดต่อ</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home" aria-label="หน้าแรก">
+      <canvas id="world" aria-hidden="true"></canvas>
+      <div class="container">
+        <div class="hero-content">
+          <div class="availability"><i aria-hidden="true"></i> พร้อมสำหรับการฝึกงานและร่วมพัฒนาโปรเจกต์เกม</div>
+          <h1>ธีรภัทร์ <span>ศรีทวีวัฒนานนท์</span></h1>
+          <p class="role">GAME &amp; LEVEL DESIGNER · ENVIRONMENT ARTIST</p>
+          <p class="hero-copy">ออกแบบพื้นที่ที่นำทางผู้เล่น สร้างจังหวะการเล่น และเปลี่ยนไอเดียให้กลายเป็นประสบการณ์ที่เล่นได้จริงผ่าน Unity และ Blender</p>
+          <div class="actions">
+            <a class="button primary" href="#projects">ดูผลงาน <span aria-hidden="true">↓</span></a>
+            <a class="button" href="#about">รู้จักผมเพิ่มเติม</a>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-note">SCROLL TO EXPLORE</div>
+      <div id="object-label" role="tooltip"></div>
+    </section>
+
+    <section id="about">
+      <div class="container about-grid">
+        <div class="identity-card reveal">
+          <div class="portrait" aria-label="พื้นที่สำหรับใส่รูปโปรไฟล์ในภายหลัง">
+            <div class="portrait-label">LEVEL DESIGN / 3D</div>
+          </div>
+        </div>
+        <div class="about-copy reveal">
+          <p class="eyebrow">ABOUT ME</p>
+          <h2 class="section-title">ออกแบบจากมุมมองของผู้เล่น</h2>
+          <h3>ผมสนใจทั้งเส้นทาง จังหวะ และความรู้สึกที่เกิดขึ้นระหว่างการเล่น</h3>
+          <p>ผมชื่อ <strong>นายธีรภัทร์ ศรีทวีวัฒนานนท์</strong> นักศึกษาชั้นปีที่ 4 มหาวิทยาลัยเทคโนโลยีราชมงคลรัตนโกสินทร์ คณะสถาปัตยกรรมศาสตร์และการออกแบบ สาขาดิจิทัลมีเดีย เอกเกมและแอนิเมชัน</p>
+          <p>ผมสนใจงานด้าน Game Design, Level Design และ Environment Art โดยเน้นการวางผังพื้นที่ เส้นทางผู้เล่น พัซเซิล ตำแหน่งศัตรูและไอเทม รวมถึงการสร้าง Blockout เพื่อทดสอบไอเดียก่อนพัฒนาเป็นฉากจริง</p>
+          <blockquote class="focus-quote">“ผมอยากสร้างพื้นที่ที่ไม่ได้มีไว้แค่ให้ผู้เล่นเดินผ่าน แต่ทำให้ผู้เล่นรู้สึกและตัดสินใจบางอย่างระหว่างทาง”</blockquote>
+          <div class="facts">
+            <div class="fact"><small>การศึกษา</small><strong>Digital Media · Game &amp; Animation</strong></div>
+            <div class="fact"><small>สายงานที่สนใจ</small><strong>Game / Level / Environment Design</strong></div>
+            <div class="fact"><small>เครื่องมือหลัก</small><strong>Unity · Blender · ProBuilder</strong></div>
+            <div class="fact"><small>สถานที่</small><strong>นครปฐม · ประเทศไทย</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects" id="projects">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">SELECTED PROJECTS</p>
+          <h2 class="section-title">ผลงานที่แสดงวิธีคิด และการแก้ปัญหา</h2>
+          <p class="section-lead">แต่ละโปรเจกต์เริ่มจากประสบการณ์ที่ต้องการให้ผู้เล่นได้รับ แล้วจึงพัฒนาเป็นผัง พื้นที่ ระบบ และบรรยากาศที่ทำงานร่วมกัน</p>
+        </div>
+        <div class="project-list">
+          <article class="project-card reveal" id="project-boss">
+            <span class="project-number">01</span>
+            <div class="project-main"><h3>Boss Fight Prototype</h3><p>สนามต่อสู้บรรยากาศมืดที่ออกแบบจังหวะหลบและการอ่านรูปแบบโจมตีของบอส</p></div>
+            <div class="project-role">Game &amp; Combat Design<div class="tags"><span class="tag">UNITY 6</span><span class="tag">URP</span><span class="tag">CINEMACHINE</span></div></div>
+            <span class="project-arrow" aria-hidden="true">↗</span>
+          </article>
+          <article class="project-card reveal" id="project-coop">
+            <span class="project-number">02</span>
+            <div class="project-main"><h3>Two-Player Puzzle</h3><p>เกม Couch Co-op ที่ใช้ความต่างของตัวละครเพื่อแบ่งหน้าที่และแก้พัซเซิลร่วมกัน</p></div>
+            <div class="project-role">Level &amp; Puzzle Design<div class="tags"><span class="tag">UNITY</span><span class="tag">CO-OP</span><span class="tag">PROBUILDER</span></div></div>
+            <span class="project-arrow" aria-hidden="true">↗</span>
+          </article>
+          <article class="project-card reveal" id="project-horror">
+            <span class="project-number">03</span>
+            <div class="project-main"><h3>VR Horror House</h3><p>บ้านสยองขวัญขนาดกะทัดรัดที่เล่าเรื่องผ่านหลักฐาน เสียง และเหตุการณ์ภายในพื้นที่</p></div>
+            <div class="project-role">VR Level &amp; Experience Design<div class="tags"><span class="tag">VR</span><span class="tag">UNITY URP</span><span class="tag">ENVIRONMENT</span></div></div>
+            <span class="project-arrow" aria-hidden="true">↗</span>
+          </article>
+          <article class="project-card reveal" id="project-saloon">
+            <span class="project-number">04</span>
+            <div class="project-main"><h3>Saloon Magic Prank</h3><p>ประสบการณ์ VR เชิงตลกที่ใช้การจัดพื้นที่และลำดับเหตุการณ์สร้างจังหวะมุกสามฉาก</p></div>
+            <div class="project-role">VR Interaction &amp; Layout<div class="tags"><span class="tag">VR</span><span class="tag">COMEDY</span><span class="tag">INTERACTION</span></div></div>
+            <span class="project-arrow" aria-hidden="true">↗</span>
+          </article>
+          <article class="project-card reveal" id="project-castle">
+            <span class="project-number">05</span>
+            <div class="project-main"><h3>Castle Level Blockout</h3><p>การวางผังปราสาทและพื้นที่ธรรมชาติ โดยสร้างเส้นทางหลัก จุดแยก และแลนด์มาร์กที่จดจำได้</p></div>
+            <div class="project-role">Environment &amp; Level Design<div class="tags"><span class="tag">BLENDER</span><span class="tag">BLOCKOUT</span><span class="tag">TERRAIN</span></div></div>
+            <span class="project-arrow" aria-hidden="true">↗</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">WORK PROCESS</p>
+          <h2 class="section-title">จากแนวคิดสู่พื้นที่ที่เล่นได้จริง</h2>
+        </div>
+        <div class="process-grid reveal">
+          <div class="step"><span class="step-num">01</span><h3>กำหนดประสบการณ์</h3><p>ระบุอารมณ์ เป้าหมาย และสิ่งที่ผู้เล่นต้องทำหรือเรียนรู้</p></div>
+          <div class="step"><span class="step-num">02</span><h3>วาง Flow และ Layout</h3><p>กำหนดเส้นทาง จุดตัดสินใจ จังหวะพัก และแลนด์มาร์ก</p></div>
+          <div class="step"><span class="step-num">03</span><h3>สร้าง Blockout</h3><p>ทดสอบสเกล ระยะมองเห็น และการเคลื่อนที่ด้วยรูปทรงพื้นฐาน</p></div>
+          <div class="step"><span class="step-num">04</span><h3>ทดสอบการเล่น</h3><p>สังเกตว่าผู้เล่นเข้าใจพื้นที่หรือไม่ แล้วแก้จุดที่ทำให้สับสน</p></div>
+          <div class="step"><span class="step-num">05</span><h3>พัฒนาและนำเสนอ</h3><p>เพิ่มระบบ บรรยากาศ แสง เสียง และเก็บภาพขั้นตอนการทำงาน</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="skills" id="skills">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">SKILLS &amp; TOOLS</p>
+          <h2 class="section-title">ทักษะที่ใช้เปลี่ยนไอเดียให้เล่นได้</h2>
+        </div>
+        <div class="skill-grid">
+          <article class="skill-card primary reveal">
+            <div><span class="skill-icon">CORE FOCUS</span><h3>Level Design</h3><p>วางผังพื้นที่ เส้นทางผู้เล่น พัซเซิล จุดเกิดศัตรูและไอเทม พร้อมสร้าง Blockout เพื่อทดสอบ Flow และสเกลจริง</p></div>
+            <div class="tool-cloud"><span>Map Layout</span><span>Player Flow</span><span>Puzzle Design</span><span>Encounter Design</span><span>Blockout</span><span>Playtesting</span></div>
+          </article>
+          <article class="skill-card reveal"><span class="skill-icon">ENGINE</span><h3>Unity</h3><p>สร้างฉาก ระบบพื้นฐาน UI, Input System, Cinemachine และประกอบ Gameplay Prototype</p></article>
+          <article class="skill-card reveal"><span class="skill-icon">3D</span><h3>Blender</h3><p>สร้าง Blockout, Props และเตรียมโมเดลสำหรับนำไปใช้งานในเอนจิน</p></article>
+          <article class="skill-card reveal"><span class="skill-icon">WORKFLOW</span><h3>Git &amp; Teamwork</h3><p>แยก Branch แบ่งฉาก และรวมงานร่วมกับสมาชิกในทีมผ่าน GitHub</p></article>
+          <article class="skill-card reveal"><span class="skill-icon">MEDIA</span><h3>Presentation</h3><p>บันทึก Gameplay และตัดต่อวิดีโอพื้นฐานด้วย OBS และ Premiere Pro</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="contact-panel reveal">
+          <p class="eyebrow">CONTACT</p>
+          <h2>มาสร้างพื้นที่ที่ผู้เล่น<span>อยากสำรวจ</span>ไปด้วยกัน</h2>
+          <p>สนใจโอกาสฝึกงานด้าน Game Design, Level Design และ Environment Art รวมถึงการร่วมพัฒนาโปรเจกต์เกม</p>
+          <div class="contact-links">
+            <a class="button primary" href="https://github.com/BestKuNG-bot" target="_blank" rel="noopener noreferrer">ดู GitHub <span aria-hidden="true">↗</span></a>
+            <a class="button" href="#home">กลับไปด้านบน ↑</a>
+          </div>
+          <!-- เพิ่มอีเมลได้ที่นี่ เช่น <a class="button" href="mailto:name@example.com">Email</a> -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container"><span>© <span id="year"></span> Teerapat Sritaweewattananon</span><span>Designed for Game &amp; Level Design</span></div></footer>
+
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js" } }
+  </script>
+  <script type="module">
+    import * as THREE from "three";
+
+    const canvas = document.querySelector("#world");
+    const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x08090d, 0.052);
+    const camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, 0.1, 100);
+    camera.position.set(8.8, 5.4, 12.5);
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.7));
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
+
+    const world = new THREE.Group();
+    world.position.set(3.4, -.4, 0);
+    scene.add(world);
+
+    scene.add(new THREE.HemisphereLight(0x8790ac, 0x141016, 1.45));
+    const key = new THREE.DirectionalLight(0xffffff, 2.8);
+    key.position.set(4, 9, 6);
+    scene.add(key);
+    const red = new THREE.PointLight(0xef233c, 48, 20, 2);
+    red.position.set(-2, 2, 4);
+    world.add(red);
+
+    const darkMat = new THREE.MeshStandardMaterial({ color: 0x20232b, roughness: .82, metalness: .12, flatShading: true });
+    const blackMat = new THREE.MeshStandardMaterial({ color: 0x0f1117, roughness: .72, metalness: .28, flatShading: true });
+    const stoneMat = new THREE.MeshStandardMaterial({ color: 0x353843, roughness: .9, flatShading: true });
+    const redMat = new THREE.MeshStandardMaterial({ color: 0xef233c, emissive: 0x5d0712, emissiveIntensity: 1.5, roughness: .35 });
+
+    // Floating low-poly island
+    const island = new THREE.Mesh(new THREE.CylinderGeometry(5.8, 2.4, 1.5, 7, 2), darkMat);
+    island.position.y = -.6;
+    world.add(island);
+    const underside = new THREE.Mesh(new THREE.ConeGeometry(2.45, 4.3, 7), blackMat);
+    underside.position.y = -3.25;
+    underside.rotation.y = .22;
+    world.add(underside);
+
+    // Castle / level blockout silhouette
+    const castle = new THREE.Group();
+    const hall = new THREE.Mesh(new THREE.BoxGeometry(2.9, 1.3, 2.1), stoneMat);
+    hall.position.y = .8;
+    castle.add(hall);
+    [-1.55, 1.55].forEach((x) => {
+      const tower = new THREE.Mesh(new THREE.CylinderGeometry(.52, .65, 2.8, 6), stoneMat);
+      tower.position.set(x, 1.45, 0);
+      castle.add(tower);
+      const roof = new THREE.Mesh(new THREE.ConeGeometry(.73, 1.15, 6), redMat);
+      roof.position.set(x, 3.42, 0);
+      castle.add(roof);
+    });
+    const roof = new THREE.Mesh(new THREE.ConeGeometry(1.7, 1.45, 4), blackMat);
+    roof.rotation.y = Math.PI / 4;
+    roof.scale.z = .7;
+    roof.position.y = 2.18;
+    castle.add(roof);
+    castle.rotation.y = -.42;
+    castle.position.set(.2, .1, -.2);
+    world.add(castle);
+
+    // Sword represents the boss fight project
+    const sword = new THREE.Group();
+    const blade = new THREE.Mesh(new THREE.BoxGeometry(.18, 2.8, .08), new THREE.MeshStandardMaterial({ color: 0xbfc4ce, metalness: .8, roughness: .25 }));
+    blade.position.y = 1.3;
+    const tip = new THREE.Mesh(new THREE.ConeGeometry(.13, .48, 4), blade.material);
+    tip.position.y = 2.92; tip.rotation.y = Math.PI / 4;
+    const guard = new THREE.Mesh(new THREE.BoxGeometry(1.15, .13, .16), redMat);
+    guard.position.y = -.12;
+    const grip = new THREE.Mesh(new THREE.CylinderGeometry(.11, .11, .7, 6), blackMat);
+    grip.position.y = -.52;
+    sword.add(blade, tip, guard, grip);
+    sword.position.set(-3.1, .7, 1.55);
+    sword.rotation.z = -.16;
+    world.add(sword);
+
+    // Portal represents VR projects
+    const portal = new THREE.Mesh(new THREE.TorusGeometry(1.05, .12, 8, 28), redMat);
+    portal.position.set(3.1, 1.35, 1.2);
+    portal.rotation.y = -.55;
+    world.add(portal);
+    const portalCore = new THREE.Mesh(new THREE.CircleGeometry(.92, 28), new THREE.MeshBasicMaterial({ color: 0x5c0713, transparent: true, opacity: .32, side: THREE.DoubleSide }));
+    portalCore.position.copy(portal.position);
+    portalCore.rotation.copy(portal.rotation);
+    world.add(portalCore);
+
+    // Puzzle cubes
+    const puzzle = new THREE.Group();
+    for (let i = 0; i < 3; i++) {
+      const cube = new THREE.Mesh(new THREE.BoxGeometry(.65, .65, .65), i === 1 ? redMat : stoneMat);
+      cube.position.set((i % 2) * .72, Math.floor(i / 2) * .72, 0);
+      puzzle.add(cube);
+    }
+    puzzle.position.set(-2.8, .2, -2.1);
+    puzzle.rotation.y = .4;
+    world.add(puzzle);
+
+    // Floating shards and particles
+    for (let i = 0; i < 18; i++) {
+      const shard = new THREE.Mesh(new THREE.TetrahedronGeometry(.08 + Math.random() * .12), i % 5 === 0 ? redMat : blackMat);
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 4.7 + Math.random() * 2.2;
+      shard.position.set(Math.cos(angle) * radius, -1.5 + Math.random() * 5.5, Math.sin(angle) * radius);
+      shard.userData.speed = .15 + Math.random() * .25;
+      world.add(shard);
+    }
+
+    const starGeo = new THREE.BufferGeometry();
+    const points = [];
+    for (let i = 0; i < 420; i++) points.push((Math.random()-.5)*42, (Math.random()-.45)*24, (Math.random()-.5)*34);
+    starGeo.setAttribute("position", new THREE.Float32BufferAttribute(points, 3));
+    const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0x747985, size: .035, transparent: true, opacity: .55 }));
+    scene.add(stars);
+
+    const interactive = [
+      { object: sword, label: "Boss Fight", target: "project-boss" },
+      { object: puzzle, label: "Co-op Puzzle", target: "project-coop" },
+      { object: portal, label: "VR Projects", target: "project-horror" },
+      { object: castle, label: "Castle Blockout", target: "project-castle" }
+    ];
+    interactive.forEach(({ object, label, target }) => {
+      object.userData.label = label; object.userData.target = target;
+      object.traverse(child => { child.userData.parentHit = object; });
+    });
+
+    const pointer = new THREE.Vector2(2, 2);
+    const pointerTarget = { x: 0, y: 0 };
+    const raycaster = new THREE.Raycaster();
+    const label = document.querySelector("#object-label");
+    let hovered = null;
+
+    addEventListener("pointermove", (event) => {
+      pointer.x = event.clientX / innerWidth * 2 - 1;
+      pointer.y = -(event.clientY / innerHeight) * 2 + 1;
+      pointerTarget.x = (event.clientX / innerWidth - .5);
+      pointerTarget.y = (event.clientY / innerHeight - .5);
+      label.style.left = event.clientX + "px";
+      label.style.top = event.clientY + "px";
+    });
+    addEventListener("click", () => {
+      if (hovered?.userData.target) document.getElementById(hovered.userData.target)?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+    });
+
+    function animate(time) {
+      const t = time * .001;
+      if (!reducedMotion) {
+        world.rotation.y = Math.sin(t * .16) * .08 + pointerTarget.x * .13;
+        world.rotation.x += (-pointerTarget.y * .04 - world.rotation.x) * .025;
+        world.position.y = -.4 + Math.sin(t * .55) * .1;
+        sword.position.y = .7 + Math.sin(t * .9) * .12;
+        portal.rotation.z = t * .15;
+        stars.rotation.y = t * .012;
+        world.children.forEach(o => { if (o.userData.speed) o.rotation.y = t * o.userData.speed; });
+      }
+      raycaster.setFromCamera(pointer, camera);
+      const hits = raycaster.intersectObjects(interactive.map(i => i.object), true);
+      hovered = hits.length ? (hits[0].object.userData.parentHit || hits[0].object) : null;
+      label.style.display = hovered ? "block" : "none";
+      if (hovered) label.textContent = hovered.userData.label;
+      canvas.style.cursor = hovered ? "pointer" : "default";
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+
+    function resize() {
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 600 ? 1.25 : 1.7));
+      renderer.setSize(innerWidth, innerHeight);
+      world.position.x = innerWidth < 760 ? 3.8 : 3.4;
+      camera.position.z = innerWidth < 600 ? 15.5 : 12.5;
+    }
+    addEventListener("resize", resize, { passive: true });
+    resize();
+
+    const header = document.querySelector("#header");
+    const menu = document.querySelector(".menu-button");
+    const navLinks = document.querySelector("#nav-links");
+    addEventListener("scroll", () => header.classList.toggle("scrolled", scrollY > 30), { passive: true });
+    menu.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+      menu.setAttribute("aria-expanded", String(open));
+      menu.textContent = open ? "×" : "☰";
+    });
+    navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+      navLinks.classList.remove("open"); menu.setAttribute("aria-expanded", "false"); menu.textContent = "☰";
+    }));
+
+    const reveals = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("visible"); revealObserver.unobserve(entry.target); } });
+    }, { threshold: .12 });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    const sections = [...document.querySelectorAll("main section[id]")];
+    const links = [...navLinks.querySelectorAll("a[href^='#']")];
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        links.forEach(link => link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`));
+      });
+    }, { rootMargin: "-45% 0px -45%" });
+    sections.forEach(section => sectionObserver.observe(section));
+    document.querySelector("#year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
