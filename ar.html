@@ -8,33 +8,6 @@
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aframe-extras@7.5.0/dist/aframe-extras.min.js"></script>
-  <script>
-    AFRAME.registerComponent('fit-model', {
-      init() {
-        this.el.addEventListener('model-loaded', () => {
-          const mesh = this.el.getObject3D('mesh');
-          if (!mesh) return;
-
-          const box = new THREE.Box3().setFromObject(mesh);
-          const size = new THREE.Vector3();
-          const center = new THREE.Vector3();
-          box.getSize(size);
-          box.getCenter(center);
-
-          const largestSide = Math.max(size.x, size.y, size.z);
-          const scale = 0.9 / largestSide;
-          this.el.object3D.scale.setScalar(scale);
-          this.el.object3D.position.set(
-            -center.x * scale,
-            -center.y * scale,
-            0.12 - center.z * scale
-          );
-
-          window.dispatchEvent(new CustomEvent('character-ready'));
-        });
-      }
-    });
-  </script>
   <style>
     html, body {
       width: 100%;
@@ -103,10 +76,9 @@
       <a-gltf-model
         id="model"
         src="#character"
-        position="0 0 0.12"
+        position="0 -0.38 0.35"
         rotation="90 0 0"
-        scale="1 1 1"
-        fit-model
+        scale="0.1 0.1 0.1"
         animation-mixer="clip: Idle; loop: repeat; clampWhenFinished: false">
       </a-gltf-model>
     </a-entity>
@@ -116,9 +88,12 @@
     const target = document.getElementById('target');
     const model = document.getElementById('model');
 
+    let modelReady = false;
+
     target.addEventListener('targetFound', () => {
-      hint.textContent = 'พบรูปแล้ว';
-      setTimeout(() => { hint.style.display = 'none'; }, 900);
+      hint.style.display = 'block';
+      hint.textContent = modelReady ? 'พบรูปแล้ว กำลังแสดงโมเดล' : 'พบรูปแล้ว กำลังโหลดโมเดล';
+      setTimeout(() => { hint.style.display = 'none'; }, 1800);
     });
     target.addEventListener('targetLost', () => {
       hint.style.display = 'block';
@@ -128,7 +103,9 @@
       hint.style.display = 'block';
       hint.textContent = 'โหลดโมเดลไม่สำเร็จ กรุณาลองเปิดใหม่';
     });
-    window.addEventListener('character-ready', () => {
+    model.addEventListener('model-loaded', () => {
+      modelReady = true;
+      hint.style.display = 'block';
       hint.textContent = 'โมเดลพร้อมแล้ว หันกล้องไปที่รูปแมว';
     });
   </script>
