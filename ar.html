@@ -1,52 +1,86 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Epona AR</title>
-<style>body { margin: 0; overflow: hidden; }</style>
-
-<script src="https://cdn.jsdelivr.net/npm/aframe@1.6.0/dist/aframe-master.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.4.8/aframe/build/aframe-ar.js"></script>
-<script>
-// ย่อ/วางโมเดลให้พอดี marker แล้วเล่นอนิเมชันแรก  (แก้ 1.8 = ความกว้างโมเดล)
-AFRAME.registerComponent('fit', {
-  init() {
-    this.el.addEventListener('model-loaded', e => {
-      const model = e.detail.model, THREE = AFRAME.THREE;
-      const box = new THREE.Box3().setFromObject(model);
-      const size = box.getSize(new THREE.Vector3());
-      const center = box.getCenter(new THREE.Vector3());
-      model.position.set(-center.x, -box.min.y, -center.z);
-      this.el.object3D.scale.setScalar(1.8 / Math.max(size.x, size.y, size.z));
-      if (model.animations.length) {
-        this.mixer = new THREE.AnimationMixer(model);
-        this.mixer.clipAction(model.animations[0]).play();
-      }
-    });
-  },
-  tick(time, dt) { if (this.mixer) this.mixer.update(dt / 1000); }
-});
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <title>Image AR</title>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aframe-extras@7.5.0/dist/aframe-extras.min.js"></script>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      font-family: Arial, sans-serif;
+    }
+    #hint {
+      position: fixed;
+      z-index: 10;
+      left: 50%;
+      bottom: max(24px, env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: calc(100% - 32px);
+      padding: 10px 16px;
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.68);
+      text-align: center;
+      font-size: 15px;
+      pointer-events: none;
+    }
+  </style>
 </head>
-
 <body>
-<a-scene embedded vr-mode-ui="enabled: false" loading-screen="enabled: false"
-  arjs="sourceType: webcam; debugUIEnabled: false; cameraParametersUrl: https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.4.8/data/data/camera_para.dat;">
+  <div id="hint">หันกล้องไปที่รูปแมว</div>
+  <a-scene
+    mindar-image="imageTargetSrc: ./targets.mind; autoStart: true; filterMinCF: 0.0001; filterBeta: 0.001; missTolerance: 8; warmupTolerance: 5;"
+    color-space="sRGB"
+    renderer="colorManagement: true; physicallyCorrectLights: true; antialias: true;"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false"
+    loading-screen="enabled: false">
+    <a-assets timeout="30000">
+      <a-asset-item
+        id="character"
+        src="https://bestkung-bot.github.io/rigged_dirty_bd-1_star_wars_jedi_fallen_order.glb">
+      </a-asset-item>
+    </a-assets>
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+    <a-entity id="target" mindar-image-target="targetIndex: 0">
+      <a-ambient-light intensity="1.4"></a-ambient-light>
+      <a-directional-light position="1 2 2" intensity="1.8"></a-directional-light>
+      <a-gltf-model
+        id="model"
+        src="#character"
+        position="0 -0.45 0.08"
+        rotation="0 0 0"
+        scale="0.45 0.45 0.45"
+        animation-mixer="clip: *; loop: repeat; clampWhenFinished: false">
+      </a-gltf-model>
+    </a-entity>
+  </a-scene>
+  <script>
+    const hint = document.getElementById('hint');
+    const target = document.getElementById('target');
+    const model = document.getElementById('model');
 
-  <a-marker preset="hiro" smooth="true">
-    <a-entity gltf-model="https://sibsansuk.github.io/epona.glb" fit></a-entity>
-  </a-marker>
-
-  <a-entity camera></a-entity>
-</a-scene>
-
-<p style="position:fixed; bottom:8px; left:10px; margin:0; padding:4px 8px; border-radius:6px;
-   background:#000a; color:#fff; font:12px system-ui, Tahoma, sans-serif;">
-  <a href="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/HIRO.jpg" target="_blank" style="color:#9ef">marker</a>
-  · Epona by
-  <a href="https://sketchfab.com/3d-models/epona-1f1da2940b0d4ddcb4beae1680c47918" target="_blank" style="color:#9ef">Vasian-Digital3D</a>
-  · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:#9ef">CC BY 4.0</a>
-</p>
+    target.addEventListener('targetFound', () => {
+      hint.textContent = 'พบรูปแล้ว';
+      setTimeout(() => { hint.style.display = 'none'; }, 900);
+    });
+    target.addEventListener('targetLost', () => {
+      hint.style.display = 'block';
+      hint.textContent = 'หันกล้องกลับไปที่รูปแมว';
+    });
+    model.addEventListener('model-error', () => {
+      hint.style.display = 'block';
+      hint.textContent = 'โหลดโมเดลไม่สำเร็จ กรุณาลองเปิดใหม่';
+    });
+  </script>
 </body>
 </html>
