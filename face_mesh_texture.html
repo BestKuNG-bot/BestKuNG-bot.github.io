@@ -71,15 +71,26 @@
         );
 
         texture.colorSpace = THREE.SRGBColorSpace;
-        faceMesh.material.map = texture;
-        faceMesh.material.transparent = true;
-        faceMesh.material.opacity = 1;
+        faceMesh.material.dispose();
+        faceMesh.material = new THREE.MeshBasicMaterial({
+          map: texture,
+          transparent: true,
+          opacity: 1,
+          side: THREE.DoubleSide,
+          depthWrite: false
+        });
         faceMesh.material.needsUpdate = true;
         scene.add(faceMesh);
 
         await mindarThree.start();
+        status.textContent = 'กำลังตรวจจับใบหน้า...';
 
         renderer.setAnimationLoop(() => {
+          if (mindarThree.getLatestEstimate()) {
+            status.textContent = 'ตรวจพบใบหน้าแล้ว';
+          } else {
+            status.textContent = 'หันใบหน้าเข้าหากล้อง';
+          }
           renderer.render(scene, camera);
         });
       } catch (error) {
