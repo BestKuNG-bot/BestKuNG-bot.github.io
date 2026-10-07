@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Face Mesh Texture</title>
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
+
+  <script>
+    AFRAME.registerComponent('face-paint', {
+      init: function () {
+        const el = this.el;
+        const applyTexture = () => {
+          const mesh = el.getObject3D('mesh');
+          if (!mesh || mesh.userData.textureApplied) return;
+
+          mesh.userData.textureApplied = true;
+          const loader = new AFRAME.THREE.TextureLoader();
+          loader.load('./memeface.png', (texture) => {
+            texture.colorSpace = AFRAME.THREE.SRGBColorSpace;
+            mesh.material = new AFRAME.THREE.MeshBasicMaterial({
+              map: texture,
+              transparent: true,
+              opacity: 1,
+              side: AFRAME.THREE.DoubleSide,
+              depthWrite: false
+            });
+            mesh.material.needsUpdate = true;
+            mesh.frustumCulled = false;
+            document.querySelector('#status').textContent = 'หันกล้องเข้าหาใบหน้า';
+          }, undefined, () => {
+            document.querySelector('#status').textContent = 'โหลด memeface.png ไม่ได้';
+          });
+        };
+
+        el.addEventListener('object3dset', applyTexture);
+        applyTexture();
+      }
+    });
+  </script>
+  <style>
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+    a-scene { width: 100%; height: 100%; }
+    #status {
+      position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+      z-index: 10; padding: 8px 14px; color: white;
+      background: rgba(0, 0, 0, 0.55); border-radius: 20px;
+      font-family: sans-serif; font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="status">กำลังเปิดกล้อง...</div>
+
+  <a-scene
+    mindar-face="faceOccluder: false"
+    embedded
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
+    <a-entity
+      id="face"
+      mindar-face-default-face-occluder
+      face-paint>
+    </a-entity>
+
+    <a-camera active="false" position="0 0 0"></a-camera>
+  </a-scene>
+</body>
+</html>
