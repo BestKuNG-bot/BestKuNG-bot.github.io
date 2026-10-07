@@ -40,9 +40,9 @@
 
       // เปลี่ยน URL ตรงนี้เป็นไฟล์ Texture ของเราได้ภายหลัง
       const texture = new THREE.TextureLoader().load(
-        'https://sin-city-eng.github.io/memeface.png'
+      './memeface.png'
       );
-
+      
       texture.colorSpace = THREE.SRGBColorSpace;
 
       const mesh = document.querySelector('#face').getObject3D('mesh');
