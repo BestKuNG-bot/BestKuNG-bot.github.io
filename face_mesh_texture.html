@@ -64,10 +64,10 @@
 
         const faceMesh = mindarThree.addFaceMesh();
         const texture = new THREE.TextureLoader().load(
-          'https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/sparkar/face-mask.png',
+          './memeface.png',
           () => { status.textContent = 'หันกล้องเข้าหาใบหน้า'; },
           undefined,
-          () => { status.textContent = 'โหลด Face Texture ไม่ได้'; }
+          () => { status.textContent = 'โหลด memeface.png ไม่ได้'; }
         );
 
         texture.colorSpace = THREE.SRGBColorSpace;
