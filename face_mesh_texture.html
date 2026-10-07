@@ -8,30 +8,36 @@
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
 
   <script>
-    AFRAME.registerComponent('face-paint', {
+    AFRAME.registerComponent('visible-face-mesh', {
       init: function () {
-        const el = this.el;
-        const applyTexture = () => {
-          const mesh = el.getObject3D('mesh');
-          if (!mesh || mesh.userData.textureApplied) return;
+        const arSystem = this.el.sceneEl.systems['mindar-face-system'];
+        arSystem.registerFaceMesh(this);
+        this.el.object3D.matrixAutoUpdate = false;
+      },
 
-          mesh.userData.textureApplied = true;
-          mesh.material = new AFRAME.THREE.MeshBasicMaterial({
-            color: 0x00ff00,
-            transparent: true,
-            opacity: 0.65,
-            side: AFRAME.THREE.DoubleSide,
-            depthTest: false,
-            depthWrite: false
-          });
-          mesh.material.needsUpdate = true;
-          mesh.frustumCulled = false;
-          mesh.renderOrder = 999;
-          document.querySelector('#status').textContent = 'หันกล้องเข้าหาใบหน้า';
-        };
+      updateVisibility: function (visible) {
+        this.el.object3D.visible = visible;
+      },
 
-        el.addEventListener('object3dset', applyTexture);
-        applyTexture();
+      updateMatrix: function (matrix) {
+        this.el.object3D.matrix.set(...matrix);
+      },
+
+      addFaceMesh: function (faceGeometry) {
+        const material = new AFRAME.THREE.MeshBasicMaterial({
+          color: 0x00ff00,
+          transparent: true,
+          opacity: 0.65,
+          side: AFRAME.THREE.DoubleSide,
+          depthTest: false,
+          depthWrite: false
+        });
+
+        const mesh = new AFRAME.THREE.Mesh(faceGeometry, material);
+        mesh.frustumCulled = false;
+        mesh.renderOrder = 999;
+        this.el.setObject3D('mesh', mesh);
+        document.querySelector('#status').textContent = 'หันกล้องเข้าหาใบหน้า';
       }
     });
   </script>
@@ -57,8 +63,7 @@
 
     <a-entity
       id="face"
-      mindar-face-default-face-occluder
-      face-paint>
+      visible-face-mesh>
     </a-entity>
 
     <a-camera active="false" position="0 0 0"></a-camera>
