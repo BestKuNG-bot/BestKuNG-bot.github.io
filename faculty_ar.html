@@ -29,7 +29,7 @@
     .panel-content{padding:0 19px 15px;min-height:166px;max-height:31vh;overflow-y:auto;scrollbar-width:thin}.panel-content h2{font:600 23px/1.45 'Prompt',sans-serif;margin:0 0 4px;letter-spacing:-.45px}.panel-content p{font-size:12px;line-height:1.9;color:var(--muted);margin:3px 0 10px}.faculty-name{font-size:11px!important;color:#52574d!important;margin-bottom:8px!important}.major-badge{display:inline-flex;gap:6px;align-items:center;background:#ede9dc;color:var(--green);border-radius:8px;font-size:10px;padding:5px 9px}.major-badge svg{width:13px;height:13px}
     .topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}.topic-tile{background:#f2ede4;border:1px solid #e8e0d4;border-radius:11px;padding:10px 8px}.topic-tile b{display:block;font:500 11px 'Prompt',sans-serif;margin:4px 0}.topic-tile span{font-size:10px;color:var(--muted);line-height:1.65;display:block}.topic-tile svg{width:19px;height:19px;color:var(--orange)}
     .career-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}.career{padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:#f5f0e7}.career b{font-size:11px;font-weight:700;display:block}.career span{display:block;font-size:10px;color:var(--muted);margin-top:2px}
-    .audio-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 19px 10px;padding-top:9px;border-top:1px solid var(--line)}.audio-copy{font-size:11px;color:var(--muted);line-height:1.6}.audio-copy b{color:var(--ink);font-weight:600;display:block}.audio-button{flex-shrink:0;border:1px solid var(--line);border-radius:10px;background:#f2ede4;color:var(--orange);padding:8px 12px;font-size:11px;font-weight:600;min-width:82px}
+    .audio-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 19px 10px;padding-top:9px;border-top:1px solid var(--line)}.audio-copy{font-size:11px;color:var(--muted);line-height:1.6}.audio-copy b{color:var(--ink);font-weight:600;display:block}.native-audio{display:block;width:calc(100% - 38px);height:32px;margin:0 19px 10px}.audio-button{flex-shrink:0;border:1px solid var(--line);border-radius:10px;background:#f2ede4;color:var(--orange);padding:8px 12px;font-size:11px;font-weight:600;min-width:82px}
     .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:#eee9df;margin:0 9px 9px;padding:5px;border-radius:15px}.tabs button{border:0;border-radius:11px;padding:10px 4px;font-size:12px;font-weight:600;background:transparent;color:#75766e;white-space:nowrap;transition:background .2s,color .2s,box-shadow .2s}.tabs button[aria-selected=true]{background:var(--ink);color:var(--paper);box-shadow:0 3px 8px #282b2914}.tabs svg{width:14px;height:14px;margin-right:4px;vertical-align:-2px}
     .fade-in{animation:fadeIn .23s ease-out}@keyframes fadeIn{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}.panel-handle{width:28px;height:3px;background:#d8d2c8;border-radius:4px;margin:8px auto -3px}
     dialog{width:calc(100% - 36px);max-width:440px;border:1px solid var(--line);border-radius:24px;background:var(--paper);color:var(--ink);padding:22px;box-shadow:0 20px 80px #0003}dialog::backdrop{background:#171e1c80;backdrop-filter:blur(7px)}dialog h2{font:500 20px 'Prompt',sans-serif;margin:0 0 12px}dialog p{font-size:13px;line-height:1.8;color:var(--muted)}dialog img{width:100%;border:1px solid var(--line);border-radius:12px}dialog a{color:var(--orange);font-size:12px}dialog .close-dialog{background:var(--ink);color:white;border:0;border-radius:12px;width:100%;padding:11px;margin-top:17px;font-size:13px}.error-text{margin:12px 0;color:#a53e29;font-size:12px;line-height:1.8}.preview-bg{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 30%,#e9e0ce,#b5c1b0);z-index:1}.preview-figure{height:47vh;position:fixed;top:11%;left:50%;transform:translateX(-50%);z-index:2;object-fit:contain;filter:drop-shadow(0 16px 12px #20322225)}.preview-caption{position:fixed;top:75px;left:16px;z-index:10;font-size:10px;color:#5b6654;background:#fff9;padding:5px 9px;border-radius:12px}
@@ -62,6 +62,7 @@
     <div class="panel-handle"></div><div class="panel-header"><span class="section-marker" id="sectionMarker">01 / MEET THE MAJOR</span><span class="track-status" id="trackStatus"><i></i><span id="trackLabel">พบรูปแล้ว</span></span></div>
     <div class="panel-content" id="panelContent" role="tabpanel" aria-labelledby="tab-about" tabindex="0"></div>
     <div class="audio-row" id="audioRow"><div class="audio-copy"><b>เสียงแนะนำสาขา</b><span id="audioStatus" role="status">เริ่มเมื่อพบมาสคอต</span></div><button type="button" class="audio-button" id="audioButton" aria-label="เล่นเสียงแนะนำสาขา">เล่นเสียง</button></div>
+    <audio id="narrationAudio" class="native-audio" controls preload="auto" playsinline src="./narration.mp3?v=4" aria-label="เครื่องเล่นเสียงแนะนำสาขา"></audio>
     <nav class="tabs" role="tablist" aria-label="หัวข้อแนะนำสาขา"><button id="tab-about" role="tab" aria-selected="true" aria-controls="panelContent" data-topic="about">รู้จักสาขา</button><button id="tab-create" role="tab" aria-selected="false" aria-controls="panelContent" data-topic="create" tabindex="-1">งานสร้างสรรค์</button><button id="tab-careers" role="tab" aria-selected="false" aria-controls="panelContent" data-topic="careers" tabindex="-1">เส้นทางอาชีพ</button></nav>
   </section>
   <dialog id="helpDialog" aria-labelledby="helpTitle"><h2 id="helpTitle">รูปสำหรับสแกน</h2><img src="./tracker.png?v=2" alt="ภาพตัวอักษรถาปัตย์ ศาลายาที่ใช้เป็น tracker"><p>เปิดรูปนี้บนคอมพิวเตอร์หรืออีกเครื่อง แล้วใช้กล้องมือถือส่องให้เห็นทั้งรูป ลองขยับเข้า–ออกช้า ๆ จนมาสคอตปรากฏ</p><a href="./tracker.png?v=2" target="_blank" rel="noopener">เปิดรูปขนาดเต็ม ↗</a><button class="close-dialog" id="closeHelp">กลับไปสำรวจ</button></dialog>
@@ -80,55 +81,54 @@
     $('#helpButton').onclick=()=>$('#helpDialog').showModal();$('#closeHelp').onclick=()=>$('#helpDialog').close();$('#helpDialog').addEventListener('click',e=>{if(e.target===$('#helpDialog')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}});
     // Visual QA mode: no camera and no tracking are requested in this mode.
     const preview=new URLSearchParams(location.search).get('preview')==='1';
-    if(preview){$('#audioRow').hidden=true;$('#welcome').hidden=true;$('#infoPanel').hidden=false;$('#trackLabel').textContent='ภาพตัวอย่าง';document.body.insertAdjacentHTML('beforeend','<div class="preview-bg"></div><img class="preview-figure" src="./mascot_preview.png" alt="ภาพตัวอย่างมาสคอต"><span class="preview-caption">ตัวอย่างการจัดวาง · ไม่ใช่ภาพจากกล้อง</span>');return;}
-    // Audio is unlocked by the camera-start gesture, then starts on first detection.
-    let audioContext,audioBuffer,audioLoading,audioSource,audioOffset=0,audioStartedAt=0;
-    let audioRequested=false,audioPlaying=false,audioBusy=false,audioGeneration=0;
+    if(preview){$('#narrationAudio').hidden=true;$('#narrationAudio').removeAttribute('src');$('#narrationAudio').load();$('#audioRow').hidden=true;$('#welcome').hidden=true;$('#infoPanel').hidden=false;$('#trackLabel').textContent='ภาพตัวอย่าง';document.body.insertAdjacentHTML('beforeend','<div class="preview-bg"></div><img class="preview-figure" src="./mascot_preview.png" alt="ภาพตัวอย่างมาสคอต"><span class="preview-caption">ตัวอย่างการจัดวาง · ไม่ใช่ภาพจากกล้อง</span>');return;}
+    // Use one native media element for the gesture unlock and all narration.
+    // This uses the same playback path as opening narration.mp3 directly.
+    const narration=$('#narrationAudio');
+    let audioRequested=false,audioPlaying=false,audioBusy=false,audioPriming=false,audioGeneration=0,audioWatchdog;
     function audioUI(status,label){$('#audioStatus').textContent=status;$('#audioButton').textContent=label;$('#audioButton').setAttribute('aria-label',label+'แนะนำสาขา');}
-    function unlockAudio(){
-      const Context=window.AudioContext||window.webkitAudioContext;
-      if(!Context)return Promise.reject(new Error('AudioContext unavailable'));
-      if(!audioContext)audioContext=new Context();
-      // Call resume before any await, while the user's tap is still active.
-      const resumed=audioContext.resume();
-      const silent=audioContext.createBufferSource();silent.buffer=audioContext.createBuffer(1,1,audioContext.sampleRate);silent.connect(audioContext.destination);silent.onended=()=>silent.disconnect();silent.start();
-      return resumed;
-    }
-    function loadNarration(){
-      if(audioBuffer)return Promise.resolve(audioBuffer);
-      if(!audioLoading)audioLoading=fetch('./narration.mp3?v=3').then(r=>{if(!r.ok)throw new Error('Audio HTTP '+r.status);return r.arrayBuffer();}).then(bytes=>audioContext.decodeAudioData(bytes)).then(buffer=>{audioBuffer=buffer;return buffer;}).catch(error=>{audioLoading=null;throw error;});
-      return audioLoading;
-    }
+    function audioFailure(){clearTimeout(audioWatchdog);audioBusy=false;audioPlaying=false;audioUI(narration.error?'โหลดเสียงไม่สำเร็จ แตะเพื่อลองอีกครั้ง':'เสียงยังไม่เริ่ม แตะปุ่มเพื่อฟัง','แตะเพื่อฟัง');}
     function prepareAudio(){
-      try{unlockAudio().catch(()=>{});if(audioContext)loadNarration().catch(()=>{audioUI('โหลดเสียงไม่สำเร็จ แตะเพื่อลองอีกครั้ง','ลองอีกครั้ง');});}catch(error){audioUI('แตะปุ่มเพื่อเปิดเสียง','แตะเพื่อฟัง');}
+      if(audioRequested||audioPriming)return;
+      // Prime the same element during the Start tap without audible narration.
+      audioPriming=true;const generation=++audioGeneration;
+      narration.muted=true;narration.volume=0;
+      try{Promise.resolve(narration.play()).then(()=>{if(generation===audioGeneration){narration.pause();narration.currentTime=0;}}).catch(()=>{}).finally(()=>{if(generation===audioGeneration){audioPriming=false;narration.muted=false;narration.volume=1;}});}
+      catch(error){audioPriming=false;narration.muted=false;narration.volume=1;}
     }
-    async function playNarration(){
-      if(audioPlaying||audioBusy)return;
-      audioBusy=true;audioRequested=true;
-      const generation=++audioGeneration;
-      audioUI('กำลังเตรียมเสียง…','ยกเลิก');
-      try{
-        await unlockAudio();
-        const buffer=await loadNarration();
-        if(generation!==audioGeneration)return;
-        if(document.hidden){audioUI('หยุดไว้ขณะออกจากหน้านี้','เล่นต่อ');return;}
-        if(audioContext.state!=='running')throw new Error('Audio playback blocked');
-        if(audioOffset>=buffer.duration)audioOffset=0;
-        const source=audioContext.createBufferSource();source.buffer=buffer;source.connect(audioContext.destination);
-        source.onended=()=>{source.disconnect();if(audioSource!==source)return;audioSource=null;audioPlaying=false;audioOffset=0;audioUI('ฟังจบแล้ว','ฟังอีกครั้ง');};
-        audioSource=source;audioStartedAt=audioContext.currentTime;source.start(0,audioOffset);audioPlaying=true;
-        audioUI('กำลังเล่นเสียงแนะนำ','หยุดเสียง');
-      }catch(error){if(generation===audioGeneration){console.warn('Narration:',error);audioUI('แตะเพื่อฟัง · หากยังไม่ได้ ลองตรวจอินเทอร์เน็ต','แตะเพื่อฟัง');}}
-      finally{if(generation===audioGeneration)audioBusy=false;}
+    function playNarration(){
+      if(audioBusy||audioPlaying)return;
+      const generation=++audioGeneration;audioRequested=true;audioPriming=false;audioBusy=true;
+      narration.muted=false;narration.volume=1;
+      if(narration.error)narration.load();
+      if(narration.ended)narration.currentTime=0;
+      const startTime=narration.currentTime;
+      audioUI('กำลังเริ่มเสียง…','ยกเลิก');
+      clearTimeout(audioWatchdog);
+      audioWatchdog=setTimeout(()=>{if(generation===audioGeneration&&narration.currentTime<=startTime+.05){narration.pause();audioFailure();}},6000);
+      try{const promise=narration.play();if(promise)promise.catch(error=>{if(generation===audioGeneration){console.warn('Narration:',error);audioFailure();}});}
+      catch(error){audioFailure();}
     }
     function pauseNarration(){
-      ++audioGeneration;audioBusy=false;
-      if(audioSource){audioOffset=Math.min(audioBuffer.duration,audioOffset+Math.max(0,audioContext.currentTime-audioStartedAt));const source=audioSource;audioSource=null;source.onended=null;source.stop();source.disconnect();}
-      audioPlaying=false;audioUI('หยุดเสียงไว้ชั่วคราว','เล่นต่อ');
+      ++audioGeneration;clearTimeout(audioWatchdog);audioPriming=false;audioBusy=false;audioPlaying=false;
+      narration.pause();narration.muted=false;narration.volume=1;audioUI('หยุดเสียงไว้ชั่วคราว','เล่นต่อ');
     }
-    $('#audioButton').onclick=()=>{if(audioPlaying||audioBusy)pauseNarration();else void playNarration();};
-    function onMascotFound(){if(!audioRequested)void playNarration();}
-    document.addEventListener('visibilitychange',()=>{if(document.hidden&&(audioPlaying||audioBusy))pauseNarration();});
+    function playbackProgress(){
+      if(audioPriming||narration.paused||narration.ended)return;
+      audioRequested=true;audioBusy=false;audioPlaying=true;clearTimeout(audioWatchdog);
+      const seconds=Math.floor(narration.currentTime),total=Math.floor(narration.duration||0);
+      const time=n=>Math.floor(n/60)+':'+String(n%60).padStart(2,'0');
+      audioUI('กำลังเล่น '+time(seconds)+(total?' / '+time(total):''),'หยุดเสียง');
+    }
+    // Show "playing" from real media progress, not merely from a play request.
+    narration.addEventListener('timeupdate',playbackProgress);
+    narration.addEventListener('play',()=>{if(audioPriming)return;audioRequested=true;audioBusy=true;audioUI('กำลังเริ่มเสียง…','ยกเลิก');});
+    narration.addEventListener('pause',()=>{if(audioPriming)return;audioBusy=false;audioPlaying=false;clearTimeout(audioWatchdog);audioUI(narration.ended?'ฟังจบแล้ว':'หยุดเสียงไว้ชั่วคราว',narration.ended?'ฟังอีกครั้ง':'เล่นต่อ');});
+    narration.addEventListener('ended',()=>{if(audioPriming)return;audioBusy=false;audioPlaying=false;clearTimeout(audioWatchdog);audioUI('ฟังจบแล้ว','ฟังอีกครั้ง');});
+    narration.addEventListener('error',()=>{if(!audioPriming&&audioRequested)audioFailure();});
+    $('#audioButton').onclick=()=>{if(audioPlaying||audioBusy||!narration.paused)pauseNarration();else playNarration();};
+    function onMascotFound(){if(!audioRequested)playNarration();}
+    document.addEventListener('visibilitychange',()=>{if(document.hidden&&(audioPlaying||audioBusy||audioPriming))pauseNarration();});
     // End narration controller.
     const scriptCache=new Map();
     function loadScript(src){if(scriptCache.has(src))return scriptCache.get(src);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=()=>{scriptCache.delete(src);reject(new Error('โหลดส่วนแสดงผลไม่สำเร็จ กรุณาตรวจอินเทอร์เน็ตแล้วลองอีกครั้ง'));};document.head.appendChild(s);});scriptCache.set(src,p);return p;}
